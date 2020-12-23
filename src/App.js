@@ -26,6 +26,15 @@ function App() {
 
   const [persons, setPersons] = useState(initialPersons)
 
+  const initialRegiser = {
+    name: '',
+    password: '',
+    email: ''
+  }
+
+  const [fieldValues, setFieldValues] = useState(initialRegiser)
+  console.log(fieldValues)
+
   useEffect(() => {
     console.log('akan dijalankan setelah render')
     getData(setPersons)
@@ -34,6 +43,16 @@ function App() {
   useEffect(() => {
     console.log('Akan dijalankan setelah komponen re-render')
   }, [persons])
+
+
+  const onChangeInput = (e) => {
+    const updateFieldValue = {
+      ...fieldValues,
+      [e.target.name]: e.target.value
+    }
+    
+    setFieldValues(updateFieldValue)
+  }
 
   return (
     <Fragment>
@@ -63,6 +82,10 @@ function App() {
       }}>
         Delete Saefulloh
       </button>
+
+      <input type="text" name="email" value={fieldValues.email} onChange={onChangeInput} />
+      <input type="text" name="name" value={fieldValues.name} onChange={onChangeInput} />
+      <input type="password" name="password" value={fieldValues.password} onChange={onChangeInput} />
     </Fragment>
   );
 }
